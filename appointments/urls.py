@@ -23,7 +23,6 @@ urlpatterns = [
 	path('doctors/invoices/', views.invoices, name='invoices'),
 	path('invoice/<slug:slug>/<int:invoice_id>/', views.invoice, name='invoice'),
 	path('invoice-pdf/<slug:slug>/<int:invoice_id>/', views.invoice_pdf, name='invoice-pdf'),
-	path('doctors/reviews/', views.reviews, name='reviews'),
 	path('dislike/review/<int:review_id>/', views.dislike_review, name='dislike-review'),
 	path('like/review/<int:review_id>/', views.like_review, name='like-review'),
 	path('reply/review/', views.reply_review, name='reply-review'),

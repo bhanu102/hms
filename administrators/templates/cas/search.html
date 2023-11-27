@@ -120,12 +120,6 @@
 										<p class="doc-speciality">{{val}}</p>
 										<h5 class="doc-department"><img src="{{doctor.speciality.image.url}}" class="img-fluid" alt="Speciality">{{doctor.speciality.name}}</h5>
 										
-										<div class="rating">
-											{% for x, count in doctor.review.items %}	
-												<i class="fas fa-star {{count}}"></i>
-											{% endfor %}
-											<span class="d-inline-block average-rating">({{doctor.total_reviews}})</span>
-										</div>
 
 										<div class="clinic-details">
 											<p class="doc-location"><i class="fas fa-hospital-alt"></i> {{doctor.clinic}}</p>
@@ -164,7 +158,6 @@
 									<div class="clini-infos">
 										<ul>
 											<li><i class="far fa-thumbs-up"></i> {{doctor.thumbs}}%</li>
-											<li><i class="far fa-comment"></i> {{doctor.total_reviews}} Feedback</li>
 											<li><i class="fas fa-map-marker-alt"></i> {{doctor.county}}, {{doctor.country}}</li>
 											<li><i class="far fa-money-bill-alt"></i> Ksh{{doctor.pricing}} <i class="fas fa-info-circle" data-toggle="tooltip" title="average-pricing"></i> </li>
 										</ul>

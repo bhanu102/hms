@@ -39,12 +39,6 @@
 								</h3>
 								<h5 class="doc-department"><img src="{{doctor.speciality.image.url}}" class="img-fluid" alt="Speciality">{{doctor.speciality.name}}</h5>
 								
-								<div class="rating">
-									{% for x, filled in doctor.review.items %}	
-										<i class="fas fa-star {{filled}}"></i>
-									{% endfor %}
-									<span class="d-inline-block average-rating">({{doctor.total_reviews}})</span>
-								</div>
 								<ul class="available-info">
 									<li>
 										<i class="fas fa-hospital-alt"></i> {{doctor.clinic}}

@@ -219,8 +219,8 @@ def doctor_profile_page2(request):
 def doctor_dashboard(request):
 	profile = Doctor.objects.get(user=request.user.id)
 	appointments = Appointment.objects.filter(doctor=profile.id)
-	upcoming_appointments = appointments.filter(booking_date__gte=dt.date.today())
-	today_appointments = appointments.filter(status='ACCEPTTED', booking_date__date=dt.date.today())
+	upcoming_appointments = appointments.filter(booking_date__gte=dt.datetime.now(tz=timezone.utc))
+	today_appointments = appointments.filter(status='ACCEPTTED', booking_date__date=dt.datetime.now(tz=timezone.utc))
 	my_patients = []
 	for appointment in appointments:
 		if appointment.patient not in my_patients:
@@ -452,16 +452,6 @@ def invoice_pdf(request, slug, invoice_id):
 		bills = Bill.objects.filter(invoice=invoice.id)
 		return render_to_pdf_response(request, 'cas/invoice-pdf.html', {'invoice': invoice, 
 			'bills': bills, 'request': request})
-
-
-@login_required(login_url='/login/')
-@user_passes_test(check_doctor, login_url='/login/')
-@user_passes_test(check_settings, login_url='/doctors/profile-settings/')
-def reviews(request):
-	doctor = Doctor.objects.get(user=request.user.id)
-	reviews = Review.objects.filter(appointment__doctor=doctor.id)
-	return render(request, 'doctors/reviews.html', {'profile': doctor, 'reviews': reviews})
-
 
 @login_required(login_url='/login/')
 def like_review(request, review_id):
@@ -921,12 +911,11 @@ def doctor_profile(request, slug, doctor_id):
 	awd = Award.objects.filter(doctor=doctor_id)
 	mbr = Membership.objects.filter(doctor=doctor_id)
 	reg = Registration.objects.filter(doctor=doctor_id)
-	reviews = Review.objects.filter(appointment__doctor=doctor_id)
 	schedule = DoctorSchedule.objects.filter(doctor=doctor_id)
 	profile = get_profile(request.user)
 	return render(request, 'patients/doctor-profile.html', {"doctor": doctor, "education": edu, 
 		"experience": exp, "award": awd, "membership": mbr, "registration": reg, "profile": profile, 
-		"reviews": reviews, "schedule": schedule})
+		 "schedule": schedule})
 
 
 def booking(request, slug, doctor_id):

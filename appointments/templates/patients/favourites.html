@@ -62,12 +62,6 @@
 							<i class="fas fa-check-circle verified"></i>
 						</h3>
 						<p class="speciality">{{favourite.doctor.latest_degree}}</p>
-						<div class="rating">
-						{% for x, filled in favourite.doctor.review.items %}	
-							<i class="fas fa-star {{filled}}"></i>
-						{% endfor %}
-							<span class="d-inline-block average-rating">({{favourite.doctor.total_reviews}})</span>
-						</div>
 						<ul class="available-info">
 							<li>
 								<i class="fas fa-map-marker-alt"></i> {{favourite.doctor.county}}, {{favourite.doctor.country}}

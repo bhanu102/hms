@@ -51,26 +51,6 @@ class Doctor(models.Model):
 		for inv in invoices:
 			revenue = revenue + inv.total_amount 
 		return revenue
-	
-	def review(self):
-		reviews = Review.objects.filter(appointment__doctor=self.id)
-		avg_review = 0
-		if reviews.count() > 0:
-			sum_review = 0
-			for review in reviews:
-				sum_review = sum_review + review.rate
-			avg_review = sum_review//reviews.count()
-		count = {}
-		rate_val = avg_review + 1
-		for x in range(1,rate_val):
-			count.setdefault(x, 'filled')
-		for x in range(rate_val,6):
-			count.setdefault(x, ' ')
-		return count
-
-	def total_reviews(self):
-		reviews = Review.objects.filter(appointment__doctor=self.id)
-		return reviews.count()
 
 	def availability(self):
 		today = dt.date.today()
@@ -133,18 +113,6 @@ class Doctor(models.Model):
 	def specialization_list(self):
 		specialization = self.specialization
 		return specialization.split(',')
-
-	def thumbs(self):
-		reviews = Review.objects.filter(appointment__doctor=self.id)
-		if reviews.count()>0:
-			recommends = reviews.filter(recommend=True)
-			if recommends.count()>0:
-				percentage = recommends.count() / reviews.count() * 100
-				return percentage
-			else:
-				return 0
-		else:
-			return 100
 
 	def my_patient_id(self):
 		appointments = Appointment.objects.filter(doctor=self.id)
@@ -372,10 +340,6 @@ class Review(models.Model):
 		for x in range(rate_val,6):
 			count.setdefault(x, ' ')
 		return count
-
-	def total_reviews(self):
-		query = Review.objects.filter(doctor=self.appointment.doctor.id)
-		return len(query)
 
 	def replies(self):
 		replies = Reply.objects.filter(review=self.id)

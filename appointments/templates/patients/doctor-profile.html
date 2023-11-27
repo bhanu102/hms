@@ -23,12 +23,6 @@
 								<h4 class="doc-name">{{doctor.full_name}}</h4>
 								<p class="doc-speciality">{{doctor.latest_degree}}</p>
 								<p class="doc-department"><img src="{{doctor.speciality.image.url}}" class="img-fluid" alt="S">{{doctor.speciality.name}}</p>
-								<div class="rating">
-								{% for x, filled in doctor.review.items %}	
-									<i class="fas fa-star {{filled}}"></i>
-								{% endfor %}
-									<span class="d-inline-block average-rating">({{doctor.total_reviews}})</span>
-								</div>
 								<div class="clinic-details">
 									<p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{doctor.county}}, {{doctor.country}} - <a href="javascript:void(0);">Get Directions</a></p>
 									<!-- ul class="clinic-gallery">
@@ -65,7 +59,6 @@
 							<div class="clini-infos">
 								<ul>
 									<li><i class="far fa-thumbs-up"></i> {{doctor.thumbs}}%</li>
-									<li><i class="far fa-comment"></i> {{doctor.total_reviews}} Feedback</li>
 									<li><i class="fas fa-map-marker-alt"></i> {{doctor.county}}, {{doctor.country}}</li>
 									<li><i class="far fa-money-bill-alt"></i> kSh {{doctor.pricing}} per session </li>
 								</ul>
@@ -120,9 +113,6 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#doc_locations" data-toggle="tab">Locations</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#doc_reviews" data-toggle="tab">Reviews</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#doc_business_hours" data-toggle="tab">Business Hours</a>
@@ -329,217 +319,6 @@
 						</div>
 						<!-- /Locations Content -->
 						
-						<!-- Reviews Content -->
-						<div role="tabpanel" id="doc_reviews" class="tab-pane fade">
-						
-							<!-- Review Listing -->
-							<div class="widget review-listing">
-								<ul class="comments-list">
-								{% for review in reviews %}
-									<!-- Comment List -->
-									<li>
-										<div class="comment">
-											<img class="avatar avatar-sm rounded-circle" alt="User Image" src="{{review.appointment.patient.image.url}}">
-											<div class="comment-body">
-												<div class="meta-data">
-													<span class="comment-author">{{review.appointment.patient}}</span>
-													<span class="comment-date">Reviewed {{ review.date|timesince }} ago</span>
-													<div class="review-count rating">
-													{% for rate in review.review_rate.values %}
-														<i class="fas fa-star {{rate}}"></i>
-													{% endfor %}
-													</div>
-												</div>
-												{% if review.recommend %}
-													<p class="recommended">
-														<i class="far fa-thumbs-up"></i> I recommend the doctor
-													</p>
-												{% elif review.recommend == False %}
-													<p class="recommended" style="color: red;">
-														<i class="far fa-thumbs-down"></i> I do not recommend the doctor
-													</p>
-												{% endif %}
-												<p class="comment-content">
-													{{review.text}}
-												</p>
-											
-											
-												<div class="comment-reply">
-													<a class="comment-btn" href="#" data-toggle="modal" data-target="#add_reply_{{review.id}}">
-														<i class="fas fa-reply"></i> Reply
-													</a>
-												   	<p class="recommend-btn">
-												{% if user.groups.get.name == 'patients_group' %}
-													{% if review.patient_liked == None %}
-														<a href="{% url 'like-review' review.id %}" class="like-btn ajax-link">
-															<i class="far fa-thumbs-up"></i> Yes({{review.total_likes}})
-														</a>
-														<a href="{% url 'dislike-review' review.id %}" class="dislike-btn ajax-link">
-															<i class="far fa-thumbs-down"></i> No({{review.total_dislikes}})
-														</a>
-													{% elif review.patient_liked %}
-														<a href="{% url 'like-review' review.id %}" class="like-btn ajax-link" style="color: green;">
-															<i class="far fa-thumbs-up"></i> Yes({{review.total_likes}})
-														</a>
-														<a href="{% url 'dislike-review' review.id %}" class="dislike-btn ajax-link">
-															<i class="far fa-thumbs-down"></i> No({{review.total_dislikes}})
-														</a>
-													{% elif not review.patient_liked %}
-														<a href="{% url 'like-review' review.id %}" class="like-btn ajax-link">
-															<i class="far fa-thumbs-up"></i> Yes({{review.total_likes}})
-														</a>
-														<a href="{% url 'dislike-review' review.id %}" class="dislike-btn ajax-link" style="color: red;">
-															<i class="far fa-thumbs-down"></i> No({{review.total_dislikes}})
-														</a>
-													{% endif %}
-												{% elif user.groups.get.name == 'doctors_group' %}
-													{% if review.doctor_liked == None %}
-														<a href="{% url 'like-review' review.id %}" class="like-btn ajax-link">
-															<i class="far fa-thumbs-up"></i> Yes({{review.total_likes}})
-														</a>
-														<a href="{% url 'dislike-review' review.id %}" class="dislike-btn ajax-link">
-															<i class="far fa-thumbs-down"></i> No({{review.total_dislikes}})
-														</a>
-													{% elif review.doctor_liked %}
-														<a href="{% url 'like-review' review.id %}" class="like-btn ajax-link" style="color: green;">
-															<i class="far fa-thumbs-up"></i> Yes({{review.total_likes}})
-														</a>
-														<a href="{% url 'dislike-review' review.id %}" class="dislike-btn ajax-link">
-															<i class="far fa-thumbs-down"></i> No({{review.total_dislikes}})
-														</a>
-													{% elif not review.doctor_liked %}
-														<a href="{% url 'like-review' review.id %}" class="like-btn ajax-link">
-															<i class="far fa-thumbs-up"></i> Yes({{review.total_likes}})
-														</a>
-														<a href="{% url 'dislike-review' review.id %}" class="dislike-btn ajax-link" style="color: red;">
-															<i class="far fa-thumbs-down"></i> No({{review.total_dislikes}})
-														</a>
-													{% endif %}
-												{% else %}
-													<a href="javascript:void(0);" class="like-btn">
-														<i class="far fa-thumbs-up"></i> Yes({{review.total_likes}})
-													</a>
-													<a href="javascript:void(0);" class="dislike-btn">
-														<i class="far fa-thumbs-down"></i> No({{review.total_dislikes}})
-													</a>
-												{% endif %}
-													</p>
-												</div>
-											
-											</div>
-										</div>
-										
-										<!-- Comment Reply -->
-										<ul class="comments-reply">
-										{% for reply in review.replies %}
-											<li>
-												<div class="comment">
-													<img class="avatar avatar-sm rounded-circle" alt="User Image" src="{{reply.get_user.image.url}}">
-													<div class="comment-body">
-														<div class="meta-data">
-															<span class="comment-author">{{reply.get_user.title}} {{reply.get_user.first_name}} {{reply.get_user.second_name}}</span>
-															<span class="comment-date">Reviewed {{reply.date|timesince}} ago</span>
-														</div>
-														<p class="comment-content">
-															{{reply.text}}
-														</p>
-													</div>
-												</div>
-											</li>
-										{% endfor %}
-										</ul>
-										<!-- /Comment Reply -->
-										
-									</li>
-									<!-- /Comment List -->
-								{% endfor %}
-								</ul>
-								{% if reviews.count > 0 %}
-								<!-- Show All -->
-								<div class="all-feedback text-center">
-									<a href="#" class="btn btn-primary btn-sm">
-										Show all feedback <strong>({{doctor.total_reviews}})</strong>
-									</a>
-								</div>
-								<!-- /Show All -->
-								{% else %}
-								<div class="all-feedback text-center">
-									<a href="#" class="btn btn-primary btn-sm">
-										No reviews yet for {{doctor.full_name}}<strong>(0)</strong>
-									</a>
-								</div>
-								{% endif %}
-								
-							</div>
-							<!-- /Review Listing -->
-						{% if user.groups.get.name == 'patients_group' %}
-							<!-- Write Review -->
-							<div class="write-review">
-							{% if profile.id in doctor.my_patient_id %}
-								<h4>Write a review for <strong>{{doctor.full_name}}</strong></h4>
-								
-								<!-- Write Review Form -->
-								<form class="add-form" action="{% url 'add-review' %}" method="POST">
-									{% csrf_token %}
-									<div class="form-group">
-										<label>Review</label>
-										<div class="star-rating">
-											<input id="star-5" type="radio" name="rating" value="5" required>
-											<label for="star-5" title="5 stars">
-												<i class="active fa fa-star"></i>
-											</label>
-											<input id="star-4" type="radio" name="rating" value="4" required>
-											<label for="star-4" title="4 stars">
-												<i class="active fa fa-star"></i>
-											</label>
-											<input id="star-3" type="radio" name="rating" value="3" required>
-											<label for="star-3" title="3 stars">
-												<i class="active fa fa-star"></i>
-											</label>
-											<input id="star-2" type="radio" name="rating" value="2" required>
-											<label for="star-2" title="2 stars">
-												<i class="active fa fa-star"></i>
-											</label>
-											<input id="star-1" type="radio" name="rating" value="1" required>
-											<label for="star-1" title="1 star">
-												<i class="active fa fa-star"></i>
-											</label>
-										</div>
-									</div>
-									<div class="form-group">
-										<label>Recommend?</label>
-										<div>
-											<input id="recommend-true" type="radio" name="recommend" value="True">
-											<label for="recommend-true" title="5 stars" required>
-												<i class="far fa-thumbs-up"></i>
-											</label>
-											<input id="recommend-false" type="radio" name="recommend" value="False">
-											<label for="recommend-false" title="4 stars" required>
-												<i class="far fa-thumbs-down"></i>
-											</label>
-										</div>
-									</div>
-									<div class="form-group">
-										<label>Your review</label>
-										<textarea id="review_desc" maxlength="100" class="form-control" name="text" required></textarea>
-									  
-									  <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars">100</span> characters remaining</small></div>
-									</div>
-									<div class="submit-section">
-										<button type="submit" class="btn btn-primary submit-btn">Add Review</button>
-									</div>
-								</form>
-								<!-- /Write Review Form -->
-							{% else %}
-								<h4>You Can't Write a review for <strong>Dr. Darren Elder</strong></h4>
-							{% endif %}
-							</div>
-							<!-- /Write Review -->
-						{% endif %}
-				
-						</div>
-						<!-- /Reviews Content -->
-						
 						<!-- Business Hours Content -->
 						<div role="tabpanel" id="doc_business_hours" class="tab-pane fade">
 							<div class="row">
@@ -598,38 +377,7 @@
 
 {% endblock %}
 
-{% block modal %}	
-	{% for review in reviews %}
-	<!-- Add Review Modal -->
-	<div class="modal fade custom-modal" id="add_reply_{{review.id}}">
-		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">Reply</h3>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				</div>
-				<form class="add-form" method="POST" action="{% url 'reply-review' %}">					
-					{% csrf_token %}
-					<div class="modal-body">
-						<input type="text" name="review" value="{{review.id}}" style="display: none;">
-						<input type="text" name="next" value="{{request.path_info}}" style="display: none;">
-						<div class="form-group">
-							<label>Reply</label>
-							<textarea id="review_desc" maxlength="100" class="form-control" name="text" required></textarea>
-							<div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars">100</span> characters remaining</small></div>
-						</div>
-						<div class="submit-section text-center">
-							<button type="submit" class="btn btn-primary submit-btn">Post</button>
-							<button type="button" class="btn btn-secondary submit-btn" data-dismiss="modal">Cancel</button>							
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- /Add Review Modal -->
-	{% endfor %}
-{% endblock %}
+
 
 {% block javascript %}
 		
