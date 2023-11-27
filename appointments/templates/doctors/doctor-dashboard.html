@@ -164,7 +164,7 @@
 												<td>{{appointment.booking_date.date}} <span class="d-block text-info">{{appointment.booking_date.time}}</span></td>
 												<td>{{appointment.purpose}}</td>
 												<td>{{appointment.new_patient}}</td>
-												<td class="text-center">kSh {{appointment.amount}}</td>
+												<td class="text-center">$ {{appointment.amount}}</td>
 												<td class="text-right">
 													<div class="table-action">
 														<a href="javascript:void(0);" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt{{appointment.id}}_details">
@@ -218,7 +218,7 @@
 												<td>{{appointment.booking_date.time}} <span class="d-block text-info">{{appointment.booking_date.time}}</span></td>
 												<td>{{appointment.purpose}}</td>
 												<td>{{appointment.new_patient}}</td>
-												<td class="text-center">kSh {{appointment.amount}}</td>
+												<td class="text-center">$ {{appointment.amount}}</td>
 												<td class="text-right">
 													<div class="table-action">
 														<a href="javascript:void(0);" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt{{appointment.id}}_details">
@@ -303,7 +303,7 @@
 						</li>
 						<li>
 							<span class="title">Paid Amount</span>
-							<span class="text">kSh {{appointment.amount}}</span>
+							<span class="text">$ {{appointment.amount}}</span>
 						</li>
 					</ul>
 				</div>
@@ -359,7 +359,7 @@
 						</li>
 						<li>
 							<span class="title">Paid Amount</span>
-							<span class="text">kSh {{appointment.amount}}</span>
+							<span class="text">$ {{appointment.amount}}</span>
 						</li>
 					</ul>
 				</div>

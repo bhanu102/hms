@@ -60,16 +60,13 @@
 								<ul>
 									<li><i class="far fa-thumbs-up"></i> {{doctor.thumbs}}%</li>
 									<li><i class="fas fa-map-marker-alt"></i> {{doctor.county}}, {{doctor.country}}</li>
-									<li><i class="far fa-money-bill-alt"></i> kSh {{doctor.pricing}} per session </li>
+									<li><i class="far fa-money-bill-alt"></i> $ {{doctor.pricing}} per session </li>
 								</ul>
 							</div>
 						{% if user.groups.get.name == 'patients_group' %}
 							<div class="doctor-action">
 								<a href="{% url 'favourite-doctor' doctor.full_name|slugify doctor.id %}" class="btn btn-white fav-btn">
 									<i class="far fa-bookmark"></i>
-								</a>
-								<a href="{% url 'chat' %}" class="btn btn-white msg-btn">
-									<i class="far fa-comment-alt"></i>
 								</a>
 								<a href="javascript:void(0)" class="btn btn-white call-btn" data-toggle="modal" data-target="#voice_call">
 									<i class="fas fa-phone"></i>

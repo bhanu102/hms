@@ -48,7 +48,6 @@ urlpatterns = [
 		name='add-billing'),
 	path('doctors/edit-billing/<int:patient_id>/<slug:slug>/<int:inv_id>/', views.edit_billing, 
 		name='edit-billing'),
-	path('doctors/chat-doctor/', views.chat_doctor, name='chat-doctor'),
 
 	# Patient URLS
 	path('patients/register/', views.register, name='register'),
@@ -66,5 +65,4 @@ urlpatterns = [
 	path('patients/change-password/', views.change_password, name='change-password'),
 	
 	path('patients/add-review/', views.add_review, name='add-review'),
- 	path('patients/chat/', views.chat, name='chat'),
 ]

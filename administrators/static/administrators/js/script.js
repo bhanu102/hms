@@ -1,6 +1,6 @@
 /*
 Author       : Dreamguys
-Template Name: Doccure - Bootstrap Admin Template
+Template Name: Hms - Bootstrap Admin Template
 Version      : 1.0
 */
 

@@ -140,7 +140,7 @@
 														</td>
 														<td>{{appointment.booking_date.date}}<span class="d-block text-info">{{appointment.booking_date.time}}</span></td>
 														<td>{{appointment.date.date}}</td>
-														<td>kSh {{appointment.amount}}</td>
+														<td>$ {{appointment.amount}}</td>
 														<td>{{appointment.follow_up_date}}</td>
 													{% if appointment.status == 'WAIT' %}
 														<td><span class="badge badge-pill bg-warning-light">Pending</span></td>
@@ -343,7 +343,7 @@
 																			<a href="{% url 'doctor-profile' invoice.doctor.full_name|slugify invoice.doctor.id %}">{{invoice.doctor.full_name}} <span>{{invoice.doctor.speciality.name}}</span></a>
 																		</h2>
 																	</td>
-																	<td>kSh {{invoice.total_amount}}</td>
+																	<td>$ {{invoice.total_amount}}</td>
 																	<td>{{invoice.date_paid.date}}</td>
 																	<td class="text-right">
 																		<div class="table-action">

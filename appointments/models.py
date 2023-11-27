@@ -291,8 +291,8 @@ class Appointment(models.Model):
 	follow_up_date = models.DateTimeField('Follow Up', null=True)
 	# doctor, patient, purpose, category, amount, status, booking_date, follow_up_date
 
-	def __str__(self):
-		return self.apt_purpose
+	# def __str__(self):
+	# 	return self.apt_purpose
 
 	def new_patient(self):
 		appointments = Appointment.objects.filter(doctor=self.doctor.id, patient=self.patient.id)

@@ -773,14 +773,6 @@ def edit_billing(request, patient_id, slug, inv_id):
 		'invoice': invoice})
 
 
-@login_required(login_url='/login/')
-@user_passes_test(check_doctor, login_url='/login/')
-@user_passes_test(check_settings, login_url='/doctors/profile-settings/')
-def chat_doctor(request):
-	doctor = Doctor.objects.get(user=request.user.id)
-	return render(request, 'doctors/chat-doctor.html', {'profile': doctor})
-
-
 def new_schedule(doctor):
 	days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 	err = []
@@ -1112,13 +1104,3 @@ def change_password(request):
 			return JsonResponse({"error": "Incorrect password"}, status=200)
 	else:
 		return render(request, 'patients/change-password.html', {'profile': patient})
-
-
-
-@login_required(login_url='/login/')
-@user_passes_test(check_patient, login_url='/login/')
-@user_passes_test(check_settings, login_url='/patients/profile-settings/')
-def chat(request):
-	patient = Patient.objects.get(user=request.user.id)
-	return render(request, 'patients/chat.html', {'profile': patient})
-

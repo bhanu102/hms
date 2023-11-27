@@ -92,7 +92,7 @@
 										<a href="{% url 'patient-profile' invoice.patient|slugify invoice.patient.id %}">{{invoice.patient.first_name}} {{invoice.patient.second_name}} <span>#PT000{{invoice.id}}</span></a>
 									</h2>
 								</td>
-								<td>kSh {{invoice.total_amount}}</td>
+								<td>$ {{invoice.total_amount}}</td>
 								<td>{{invoice.date_paid}}</td>
 								<td class="text-right">
 									<div class="table-action">

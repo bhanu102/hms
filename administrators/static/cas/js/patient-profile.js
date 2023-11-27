@@ -1,6 +1,6 @@
 /*
 Author       : MalonzaElkanah
-Template Name: Doccure - Patient-Profile
+Template Name: Hms - Patient-Profile
 Version      : 1.0
 */
 

@@ -1,6 +1,6 @@
 /*
 Author       : Dreamguys
-Template Name: Doccure - Bootstrap Template
+Template Name: Hms - Bootstrap Template
 Version      : 1.0
 */
 

@@ -110,8 +110,8 @@
 												<tr>
 													<td>{{bill.description}}</td>
 													<td class="text-center">{{bill.quantity}}</td>
-													<td class="text-center">kSh {{bill.vat}}</td>
-													<td class="text-right">kSh {{bill.amount}}</td>
+													<td class="text-center">$ {{bill.vat}}</td>
+													<td class="text-right">$ {{bill.amount}}</td>
 												</tr>
 											{% endfor %}
 											</tbody>
@@ -124,7 +124,7 @@
 											<tbody>
 											<tr>
 												<th>Subtotal:</th>
-												<td><span>kSh {{invoice.total_amount}} </span></td>
+												<td><span>$ {{invoice.total_amount}} </span></td>
 											</tr>
 											<tr>
 												<th>Discount:</th>
@@ -132,7 +132,7 @@
 											</tr>
 											<tr>
 												<th>Total Amount:</th>
-												<td><span>kSh {{invoice.total_amount}}</span></td>
+												<td><span>$ {{invoice.total_amount}}</span></td>
 											</tr>
 											</tbody>
 										</table>
